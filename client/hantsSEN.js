@@ -80,6 +80,7 @@ Meteor.generateMap = function(){
   var centered;
 
   var tooltip = d3.tooltip();
+  // console.log(data);
 
   mapVis = d3.select("#map")
   .append("svg")
@@ -149,7 +150,8 @@ Meteor.generateMap = function(){
     var objectid = 'LSOA_hants_simplify0.75';
     var hantsLsoa = topojson.feature(hantsData, hantsData.objects[objectid]);
 
-    console.log(hantsLsoa);
+    var data = hampshireDataManager.getCleanedData();
+    console.log(data);
 
     // centre_and_bound(hantsLsoa);
 
