@@ -91,7 +91,7 @@ Meteor.generateMap = function(){
   .attr("height", height);
 
   var projection = d3.geo.albers()
-    .center([2.5, 51.1])
+    .center([2.85, 51.1])
     .rotate([4.4, 0])
     .scale(1200 * 30);
 
@@ -191,7 +191,7 @@ Meteor.generateMap = function(){
 
     var key = mapVis.append("g")
       .attr("class", "key")
-      .attr("transform", "translate(650,20)"); //Need to auto adjust this
+      .attr("transform", "translate(850,20)"); //Need to auto adjust this
 
     key.selectAll("rect")
       .data(color.range().map(function(d, i) {

@@ -1,5 +1,11 @@
 body {
 	padding: 15px;
+  	-webkit-touch-callout: none;
+  	-webkit-user-select: none;
+ 	-khtml-user-select: none;
+  	-moz-user-select: none;
+ 	-ms-user-select: none;
+  	user-select: none; 
 }
 
 h1 {
@@ -78,7 +84,7 @@ div.tooltip {
 	width: 365px;
 	position: absolute;
 	top: 100px;
-	left: 170px;
+	left: 30px;
 	text-align: left;
 }
 
