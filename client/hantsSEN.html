@@ -9,12 +9,12 @@
 </body>
 
 <template name="page">
- main frame
+ <!-- main frame -->
 {{#if homeRoute}}
 	home page
 {{else}}
 	{{#if mapRoute}}
-		map route
+		<!-- map route -->
 		{{> map}}
 	{{else}}
 		{{#if tableRoute}}
@@ -31,7 +31,11 @@
 </template>
 
 <template name="map">
- map page
+ <!-- map page -->
+
+  <h1>Hampshire Special Education Needs Predictions</h1>
+  <hr>
+
    <div id="map">
   </div>
   <div class="tooltip hidden">
