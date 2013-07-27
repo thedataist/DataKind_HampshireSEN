@@ -111,44 +111,26 @@ Meteor.generateMap = function(){
         .translate(t);
   };
 
-  // d3.json("data/LSOA_hants_simplify0.75.topo.json", function(json){
-  //   console.log("geojson loaded");
-  //   mapVis.append("svg:g")
-  //   .attr("class", "lsoa")
-  //   .selectAll("path")
-  //   .data(json.features)
-  //   .enter().append("svg:path")
-  //   .attr("d", path)
-  //   .attr("fill-opacity", 0.5)
-  //   .attr("fill", function(d){
-  //     return "#00ff00";
-  //     }
-  //   )
-  //   .attr("stroke", "#222");
-  // });
-
   d3.json("data/LSOA_hants_simplify0.75_simplify-proportion0.5.topo.json", function(hantsData) {
-  // d3.json("data/LSOA_hants_simplify0.75.topo.json", function(hantsData) {
 
     var objectid = 'LSOA_hants_simplify0.75';
     var hantsLsoa = topojson.feature(hantsData, hantsData.objects[objectid]);
 
     // centre_and_bound(hantsLsoa);
 
+    // Create the outline of the LSOAs
     layerHants.append("path")
-      .datum(topojson.mesh(hantsData, hantsData.objects[objectid])) //, function(a, b) { return a !== b; }))
+      .datum(topojson.mesh(hantsData, hantsData.objects[objectid]))
       .attr("class", "lsoa-boundary")
-      .attr("stroke", "#000")
-      .attr("fill", "#FFF")
       .attr("d", path);
 
-    // layerHants.selectAll(".lsoa")
-    //   .data(hantsLsoa.features)
-    //   .enter().append("path")
-    //   .attr("class", "lsoa")
-    //   .style("fill", function(d) {
-    //     return "#00ff00";
-    //   });
+    layerHants.selectAll(".lsoa")
+      .data(hantsLsoa.features)
+      .enter().append("path")
+      .attr("class", "lsoa")
+      .style("fill", function(d) {
+        return "#FF0000";
+      });
 
   });
 
