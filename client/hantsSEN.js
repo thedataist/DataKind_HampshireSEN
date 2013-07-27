@@ -53,6 +53,10 @@ Template.map.schools  = function () {
   return Schools.find();
 };
 
+Template.tree.rendered = function () {
+  Meteor.generateMap();
+}
+
 var mskiRouter = new Router;
 
 Meteor.startup(function () {
