@@ -2,8 +2,10 @@
 	stroke: #000;
 	fill: none;
 	stroke-linejoin: round;
+	stroke-width: 2px;
 }
 
 .lsoa {
-
+	stroke: #000;
+	stroke-width: 0.5px;
 }

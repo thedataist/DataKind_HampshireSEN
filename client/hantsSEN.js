@@ -77,6 +77,7 @@ Meteor.generateMap = function(){
   d3.select("#map").attr("style","width:100%; height:500px; float:left");
   var width = $("#map").width(), 
       height = $("#map").height();
+  var centered;
 
   console.log(width);
   console.log(height);
@@ -119,8 +120,29 @@ Meteor.generateMap = function(){
 
   };
 
-  function click() {
+  function click(d) {
+      var x, y, k;
 
+      if (d && centered !== d) {
+        var centroid = path.centroid(d);
+        x = centroid[0];
+        y = centroid[1];
+        k = 10; // Zoom factor
+        centered = d;
+      } else {
+        x = width / 2;
+        y = height / 2;
+        k = 1;
+        centered = null;
+      }
+
+      mapGroup.selectAll("path")
+          .classed("active", centered && function(d) { return d === centered; });
+
+      mapGroup.transition()
+          .duration(1500)
+          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+          .style("stroke-width", 1.5 / k + "px");
   };
 
   d3.json("data/LSOA_hants_simplify0.75_simplify-proportion0.5.topo.json", function(hantsData) {
