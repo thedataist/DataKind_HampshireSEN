@@ -82,8 +82,8 @@ Meteor.generateMap = function(){
   var tooltip = d3.tooltip();
 
   var color = d3.scale.threshold()
-    .domain([0, 2, 4, 6, 8, 10])  // This is a hardwired scale for the deprivation index.
-    .range(colorbrewer.YlOrRd[7]);
+    .domain([10, 20, 30, 40, 50, 60 ,70])  // This is a hardwired scale for the deprivation index.
+    .range(colorbrewer.YlOrRd[8]);
 
   mapVis = d3.select("#map")
   .append("svg")
@@ -148,12 +148,12 @@ Meteor.generateMap = function(){
     var hantsLsoa = topojson.feature(hantsData, hantsData.objects[objectid]);
 
     // var data = hampshireDataManager.getCleanedData();
-    // console.log(data);
+    // // console.log(data);
 
-    // Processing of data to get deprivation index
+    // // Processing of data to get deprivation index
     // var deprivationById = {};
-    // data.forEach(function(d) { deprivationById[d.LSOA_CODE] = d.IMD_SCORE;  });
-    // minmax_deprivation = d3.extent(data, function(d) { return d.IMD_SCORE; });
+    // data.forEach(function(d) { deprivationById[d.LSOA_CODE] = +d.IMD_SCORE;  });
+    // minmax_deprivation = d3.extent(data, function(d) { return +d.IMD_SCORE; });
     // console.log(minmax_deprivation);
 
     // Create the outline of the LSOAs
@@ -179,7 +179,7 @@ Meteor.generateMap = function(){
     // Legend
     var formatNumber = d3.format("r");
     var x = d3.scale.linear()
-      .domain([0, 10])  // Need to automate this
+      .domain([0, 70])  // Need to automate this
       .range([0, 300]); // Sets the screen width of the legend
 
     var xAxis = d3.svg.axis()
