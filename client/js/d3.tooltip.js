@@ -32,15 +32,18 @@ d3.tooltip = function module() {
 
 	    tooltipSel
 	      .select('.tooltip-title')
-	      .text("LSOA: "+ _d.id);
+	      .text(_d.properties.LA_NAME);
 	    tooltipSel.select('.tooltip-label.var0')
-	      .text("Area: "+_d.properties.SHAPE_AREA);
+	      .text("IMD: "+_d.properties.IMD_SCORE);
+      tooltipSel.select('.tooltip-label.var1')
+        .text("LSOA: "+_d.id);
+
   	};
   	exports.move = function() {
   		var tooltipSel = tooltipSelection();
 		tooltipSel
-		    .style("left", (d3.event.pageX) + "px")     
-		    .style("top", (d3.event.pageY - 100) + "px");  
+		    .style("left", (d3.event.pageX) - 70 + "px")     
+		    .style("top", (d3.event.pageY - 130) + "px");  
   	};
   	exports.hide = function () {
   		var tooltipSel = tooltipSelection();
