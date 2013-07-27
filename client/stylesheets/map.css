@@ -1,3 +1,7 @@
+body {
+	padding: 15px;
+}
+
 .lsoa-boundary {
 	stroke: #000;
 	fill: none;
@@ -95,4 +99,14 @@ div.tooltip {
 }
 
 .sources .sources-description {
+}
+
+#footer {
+	border-top: 1px solid #DDDDDD;
+	font-family: Arial;
+}
+
+#footer .logo {
+	position: relative;
+	top: -1px;
 }
