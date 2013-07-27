@@ -53,7 +53,7 @@ Template.map.schools  = function () {
   return Schools.find();
 };
 
-Template.tree.rendered = function () {
+Template.map.rendered = function () {
   Meteor.generateMap();
 }
 
@@ -68,8 +68,12 @@ Meteor.startup(function () {
   Meteor.autorun(function () {
     //Meteor.subscribe("queries");
     Session.set("loginError", false);
-
   });
 });
+
+Meteor.generateMap = function(){
+  d3.select("svg").remove();
+  d3.select("#tree").attr("style","width:100%; height:500px; float:left");
+}
 
 
