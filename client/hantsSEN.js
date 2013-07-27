@@ -78,6 +78,9 @@ Meteor.generateMap = function(){
   var width = $("#map").width(), 
       height = $("#map").height();
 
+  console.log(width);
+  console.log(height);
+
   mapVis = d3.select("#map")
   .append("svg")
   .attr("width", width)
@@ -86,15 +89,12 @@ Meteor.generateMap = function(){
   var projection = d3.geo.albers()
     .center([2.5, 51.1])
     .rotate([4.4, 0])
-    // .parallels([50, 60])
     .scale(1200 * 30);
-    // .translate([width / 3, height / 2]);
 
   var path = d3.geo.path()
       .projection(projection);
 
   var mapGroup = mapVis.append("g");
-  // var layerUK = mapGroup.append("g");
   var layerHants = mapGroup.append("g");
 
   function centre_and_bound_projection(geojson_object) {
@@ -111,6 +111,18 @@ Meteor.generateMap = function(){
         .translate(t);
   };
 
+  function mouseOver(d) {
+    console.log(d);
+  };
+
+  function mouseOut() {
+
+  };
+
+  function click() {
+
+  };
+
   d3.json("data/LSOA_hants_simplify0.75_simplify-proportion0.5.topo.json", function(hantsData) {
 
     var objectid = 'LSOA_hants_simplify0.75';
@@ -124,6 +136,7 @@ Meteor.generateMap = function(){
       .attr("class", "lsoa-boundary")
       .attr("d", path);
 
+    // Create the filling of the LSOAs
     layerHants.selectAll(".lsoa")
       .data(hantsLsoa.features)
       .enter().append("path")
@@ -131,7 +144,10 @@ Meteor.generateMap = function(){
       .style("fill", function(d) {
         return "#00FF00";
       })
-      .attr("d", path);
+      .attr("d", path)
+      .on("click", click)
+      .on("mouseover", mouseOver)
+      .on("mouseout", mouseOut);
 
   });
 
