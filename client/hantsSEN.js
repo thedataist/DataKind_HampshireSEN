@@ -80,7 +80,6 @@ Meteor.generateMap = function(){
   var centered;
 
   var tooltip = d3.tooltip();
-  // console.log(data);
 
   var color = d3.scale.threshold()
     .domain([0, 2, 4, 6, 8, 10])  // This is a hardwired scale for the deprivation index.
@@ -156,9 +155,6 @@ Meteor.generateMap = function(){
     minmax_deprivation = d3.extent(data, function(d) { return d.IMD_SCORE; });
     console.log(minmax_deprivation);
 
-
-    // centre_and_bound(hantsLsoa);
-
     // Create the outline of the LSOAs
     layerHants.append("path")
       .datum(topojson.mesh(hantsData, hantsData.objects[objectid]))
@@ -177,10 +173,49 @@ Meteor.generateMap = function(){
       .on("mousemove", function() { tooltip.move(); })
       .on("mouseout", function() { tooltip.hide(); } );
 
+
+    // Legend
+    var formatNumber = d3.format(",r");
+    var x = d3.scale.linear()
+      .domain([0, 10])  // Need to automate this
+      .range([0, 300]); // Sets the screen width of the legend
+
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom")
+      .tickSize(0)
+      .tickValues(color.domain())
+      .tickFormat(function(d) { return formatNumber(d); });
+
+    var key = mapVis.append("g")
+      .attr("class", "key")
+      .attr("transform", "translate(650,20)"); //Need to auto adjust this
+
+    key.selectAll("rect")
+      .data(color.range().map(function(d, i) {
+        return {
+          x0: i ? x(color.domain()[i - 1]) : x.range()[0],
+          x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
+          z: d
+        };
+      }))
+    .enter().append("rect")
+      .classed("colorbar",true)
+      .attr("height", 8)
+      .attr("x", function(d) { return d.x0; })
+      .attr("width", function(d) { return d.x1 - d.x0; })
+      .style("fill", function(d) { return d.z; })
+      .style("stroke-width","0.5px")
+      .style("stroke","black");
+
+    key.call(xAxis).append("text")
+      .attr("class", "caption")
+      .attr("y", -6)
+      .text("Index of deprivation");
+
+
+
   });
-
-
-
 }
 
 
