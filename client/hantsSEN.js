@@ -133,12 +133,15 @@ Meteor.generateMap = function(){
       }
 
       mapGroup.selectAll("path")
-          .classed("active", centered && function(d) { return d === centered; });
+          .classed("active", centered && function(d) { return d === centered; })
+          .transition()
+          .duration(1500)
+          .style("stroke-width", 0.4 / k + "px");
 
       mapGroup.transition()
           .duration(1500)
-          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-          .style("stroke-width", 1.5 / k + "px");
+          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
+          // .style("stroke-width", 0.4 / k + "px");
   };
 
   d3.json("data/LSOA_hants_simplify0.75_simplify-proportion0.5.topo.json", function(hantsData) {
