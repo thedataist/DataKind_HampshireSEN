@@ -67,13 +67,39 @@ Meteor.startup(function () {
 
   Meteor.autorun(function () {
     //Meteor.subscribe("queries");
-    Session.set("loginError", false);
+    //Session.set("loginError", false);
   });
 });
 
 Meteor.generateMap = function(){
+  var path = d3.geo.path();
+
   d3.select("svg").remove();
-  d3.select("#tree").attr("style","width:100%; height:500px; float:left");
+  d3.select("#map").attr("style","width:100%; height:500px; float:left");
+  var width = $("#map").width(), 
+      height = $("#map").height();
+
+  mapVis = d3.select("#map")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+  d3.json("/data/LSOA_hants_simplify0.75.topo.json", function(json){
+    console.log("geojson loaded");
+    mapVis.append("svg:g")
+    .attr("class", "lsoa")
+    .selectAll("path")
+    .data(json.features)
+    .enter().append("svg:path")
+    .attr("d", path)
+    .attr("fill-opacity", 0.5)
+    .attr("fill", function(d){
+      return "#00ff00";
+      }
+    )
+    .attr("stroke", "#222");
+  });
+
 }
 
 
