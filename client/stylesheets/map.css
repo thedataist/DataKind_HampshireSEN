@@ -9,3 +9,45 @@
 	stroke: #000;
 	stroke-width: 0.5px;
 }
+
+div.tooltip {
+	border: 1px solid #bbbbbb;
+	color: black;
+	background-color: white;
+	position: absolute;
+	font-family: Arial, Helvetical, sans-serif;
+	padding: 10px;
+	max-width: 170px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+	opacity: 1;
+}
+
+.tooltip.hidden {
+  display: none;
+}
+
+.tooltip .tooltip-title {
+	font-size: 12px;
+	font-weight: bold;
+	padding-bottom: 4px;
+}
+
+.tooltip .tooltip-label {
+	color: #666;
+	font-weight: normal;
+	font-size: 11px;
+	padding-right: 5px;
+}
+
+.tooltip .tooltip-label {
+	color: #666;
+	font-weight: normal;
+	font-size: 11px;
+	padding-right: 5px;
+}
+
+.tooltip .tooltip-value {
+	font-weight: bold;
+	font-size: 12px;
+	text-align: center;
+}

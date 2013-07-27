@@ -79,8 +79,7 @@ Meteor.generateMap = function(){
       height = $("#map").height();
   var centered;
 
-  console.log(width);
-  console.log(height);
+  var tooltip = d3.tooltip();
 
   mapVis = d3.select("#map")
   .append("svg")
@@ -112,13 +111,13 @@ Meteor.generateMap = function(){
         .translate(t);
   };
 
-  function mouseOver(d) {
-    console.log(d);
-  };
+  // function mouseOver(d) {
+  //   console.log(d);
+  // };
 
-  function mouseOut() {
+  // function mouseOut() {
 
-  };
+  // };
 
   function click(d) {
       var x, y, k;
@@ -168,8 +167,9 @@ Meteor.generateMap = function(){
       })
       .attr("d", path)
       .on("click", click)
-      .on("mouseover", mouseOver)
-      .on("mouseout", mouseOut);
+      .on("mouseover", function(d) { tooltip.show(d); })
+      .on("mousemove", function() { tooltip.move(); })
+      .on("mouseout", function() { tooltip.hide(); } );
 
   });
 
