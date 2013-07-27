@@ -1,8 +1,9 @@
 .lsoa-boundary {
 	stroke: #000;
 	fill: none;
+	stroke-linejoin: round;
 }
 
 .lsoa {
-	
+
 }
