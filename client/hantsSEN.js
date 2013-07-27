@@ -82,6 +82,11 @@ Meteor.generateMap = function(){
   var tooltip = d3.tooltip();
   // console.log(data);
 
+  var color = d3.scale.threshold()
+    .domain([0, 2, 4, 6, 8, 10])  // This is a hardwired scale for the deprivation index.
+    .range(colorbrewer.YlOrRd[7]);
+    console.log(color);
+
   mapVis = d3.select("#map")
   .append("svg")
   .attr("width", width)
@@ -111,14 +116,6 @@ Meteor.generateMap = function(){
         .scale(s)
         .translate(t);
   };
-
-  // function mouseOver(d) {
-  //   console.log(d);
-  // };
-
-  // function mouseOut() {
-
-  // };
 
   function click(d) {
       var x, y, k;
@@ -151,7 +148,14 @@ Meteor.generateMap = function(){
     var hantsLsoa = topojson.feature(hantsData, hantsData.objects[objectid]);
 
     var data = hampshireDataManager.getCleanedData();
-    console.log(data);
+    // console.log(data);
+
+    // Processing of data to get deprivation index
+    var deprivationById = {};
+    data.forEach(function(d) { deprivationById[d.LSOA_CODE] = d.IMD_SCORE;  });
+    minmax_deprivation = d3.extent(data, function(d) { return d.IMD_SCORE; });
+    console.log(minmax_deprivation);
+
 
     // centre_and_bound(hantsLsoa);
 
@@ -166,9 +170,7 @@ Meteor.generateMap = function(){
       .data(hantsLsoa.features)
       .enter().append("path")
       .attr("class", "lsoa")
-      .style("fill", function(d) {
-        return "#00FF00";
-      })
+      .style("fill", function(d) { return color(deprivationById[d.id]) })
       .attr("d", path)
       .on("click", click)
       .on("mouseover", function(d) { tooltip.show(d); })
