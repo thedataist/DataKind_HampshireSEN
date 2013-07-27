@@ -149,6 +149,8 @@ Meteor.generateMap = function(){
     var objectid = 'LSOA_hants_simplify0.75';
     var hantsLsoa = topojson.feature(hantsData, hantsData.objects[objectid]);
 
+    console.log(hantsLsoa);
+
     // centre_and_bound(hantsLsoa);
 
     // Create the outline of the LSOAs
