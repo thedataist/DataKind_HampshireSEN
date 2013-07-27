@@ -129,8 +129,9 @@ Meteor.generateMap = function(){
       .enter().append("path")
       .attr("class", "lsoa")
       .style("fill", function(d) {
-        return "#FF0000";
-      });
+        return "#00FF00";
+      })
+      .attr("d", path);
 
   });
 
