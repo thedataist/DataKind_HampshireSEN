@@ -5,8 +5,9 @@ Meteor.subscribe("schools");
 var Router = Backbone.Router.extend({
   routes: {
     "": "main",
-    "map": "map",
-    "table" : "table"
+    "insights": "map",
+    "questions" : "questions",
+    "feedback": "feedback"
   },
 
   main: function () {
@@ -19,9 +20,15 @@ var Router = Backbone.Router.extend({
   	Session.set("page", "map");
   },
 
-  table: function () {
-  	console.log("table route");
-  	Session.set("page", "table");
+  questions: function () {
+  	console.log("questions route");
+  	Session.set("page", "questions");
+  }
+
+  ,
+feedback: function () {
+    console.log("feedback route");
+    Session.set("page", "feedback");
   }
 
 });
@@ -31,13 +38,18 @@ Template.page.mapRoute = function () {
   else return false;
 };
 
-Template.page.tableRoute = function () {
-  if(Session.get("page") === "table") return true;
+Template.page.questionsRoute = function () {
+  if(Session.get("page") === "questions") return true;
   else return false;
 };
 
 Template.page.homeRoute = function () {
   if(Session.get("page") === "home") return true;
+  else return false;
+};
+
+Template.page.feedbackRoute = function () {
+  if(Session.get("page") === "feedback") return true;
   else return false;
 };
 
