@@ -1,5 +1,5 @@
 body {
-	padding: 15px;
+	padding: 25px;
   	-webkit-touch-callout: none;
   	-webkit-user-select: none;
  	-khtml-user-select: none;
@@ -30,11 +30,12 @@ h4 { margin: 0 auto;
 	stroke: #000;
 	fill: none;
 	stroke-linejoin: round;
+	stroke-width: 2.0px;
 }
 
 .lsoa {
 	stroke: #000;
-	stroke-width: 0.4px;
+	stroke-width: 0.3px;
 }
 
 div.tooltip {
@@ -77,6 +78,14 @@ div.tooltip {
 	font-weight: bold;
 	font-size: 12px;
 	text-align: center;
+}
+
+.subunit-boundary {
+  fill: none;
+  stroke: #777;
+  stroke-dasharray: 2,2;
+  stroke-linejoin: round;
+  stroke-width: 1.5px;
 }
 
 .explainer {

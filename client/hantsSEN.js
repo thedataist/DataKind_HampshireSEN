@@ -74,7 +74,7 @@ Meteor.startup(function () {
 Meteor.generateMap = function(){
   
   d3.select("svg").remove();
-  d3.select("#map").attr("style","width:100%; height:500px; float:left");
+  d3.select("#map").attr("style","width:100%; height:550px; float:left");
   var width = $("#map").width(), 
       height = $("#map").height();
   var centered;
@@ -91,15 +91,18 @@ Meteor.generateMap = function(){
   .attr("height", height);
 
   var projection = d3.geo.albers()
-    .center([2.85, 51.1])
+    .center([2.85, 50.98])
     .rotate([4.4, 0])
-    .scale(1200 * 30);
+    .scale(1200 * 29);
 
   var path = d3.geo.path()
       .projection(projection);
 
   var mapGroup = mapVis.append("g");
+  var layerUk = mapGroup.append("g");
+  var layerHantsBoundary = mapGroup.append("g");
   var layerHants = mapGroup.append("g");
+
 
   function centre_and_bound_projection(geojson_object) {
     projection
@@ -122,7 +125,7 @@ Meteor.generateMap = function(){
         var centroid = path.centroid(d);
         x = centroid[0];
         y = centroid[1];
-        k = 10; // Zoom factor
+        k = 8; // Zoom factor
         centered = d;
       } else {
         x = width / 2;
@@ -131,21 +134,41 @@ Meteor.generateMap = function(){
         centered = null;
       }
 
-      mapGroup.selectAll("path")
+      layerHants.selectAll("path")
           .classed("active", centered && function(d) { return d === centered; })
           .transition()
           .duration(1500)
-          .style("stroke-width", 0.4 / k + "px");
+          .style("stroke-width", 0.3 / k + "px");
+
+      layerUk.selectAll("path")
+          .classed("active", centered && function(d) { return d === centered; })
+          .transition()
+          .duration(1500)
+          .style("opacity", function() { return centered ? 0 : 1 });
 
       mapGroup.transition()
           .duration(1500)
           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
   };
 
+  // queue()
+      // .defer(d3.json, "data/LSOA_hants_simplify0.75_simplify-proportion0.5_datajoin.topo.json")
+      // .defer(d3.json, "data/uk.json")
+      // .await(ready);
+
+ // function ready(error, hantsData, uk) {
   d3.json("data/LSOA_hants_simplify0.75_simplify-proportion0.5_datajoin.topo.json", function(hantsData) {
+    d3.json("data/uk.json", function(uk) {
 
     var objectid = 'LSOA_hants_simplify0.75';
     var hantsLsoa = topojson.feature(hantsData, hantsData.objects[objectid]);
+
+    // layerUk.datum(topojson.feature(uk, uk.objects.subunits));
+
+      layerUk.append("path")
+      .datum(topojson.mesh(uk, uk.objects.subunits))
+      .attr("class", "subunit-boundary")
+      .attr("d", path);
 
     // var data = hampshireDataManager.getCleanedData();
     // // console.log(data);
@@ -157,7 +180,7 @@ Meteor.generateMap = function(){
     // console.log(minmax_deprivation);
 
     // Create the outline of the LSOAs
-    layerHants.append("path")
+    layerHantsBoundary.append("path")
       .datum(topojson.mesh(hantsData, hantsData.objects[objectid]))
       .attr("class", "lsoa-boundary")
       .attr("d", path);
@@ -215,6 +238,6 @@ Meteor.generateMap = function(){
       .attr("y", -6)
       .text("Index of deprivation");
   });
+});
 }
-
 
