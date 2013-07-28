@@ -11,7 +11,7 @@
 <template name="page">
  <!-- main frame -->
 {{#if homeRoute}}
-	home page
+	{{> home}}
 {{else}}
 	{{#if mapRoute}}
 		<!-- map route -->
@@ -32,7 +32,13 @@
 </template>
 
 <template name="home">
- home page
+  <div class="header row" style="padding:32px;" >
+    <div class="span11"> 
+      <span display="inline-block" style="color:#00000ff; font-size: 20pt;">
+      <b><img src="/img/datakind.jpeg"> Exploration of <img src="/img/hanstLogo.gif"> SEN Data</b></span>
+    </div>
+  </div>
+
 </template>
 
 <template name="map">
