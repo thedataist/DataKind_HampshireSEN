@@ -26,6 +26,14 @@ h4 { margin: 0 auto;
 	width: 500px;
 }
 
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}	
+
 .lsoa-boundary {
 	stroke: #000;
 	fill: none;
