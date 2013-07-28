@@ -88,6 +88,31 @@ div.tooltip {
   stroke-width: 1.5px;
 }
 
+.mapkey {
+	background-color:#ffffff;
+	position: absolute;
+	top: 180px;
+	left: 950px;
+	background: transparent; 
+}
+
+.key {
+	font: 10px sans-serif;
+}
+
+.key path {
+  display: none;
+}
+
+.key line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.caption {
+  font-weight: bold;
+}
+
 .explainer {
 	color: #000;
 	width: 365px;

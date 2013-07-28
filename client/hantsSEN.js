@@ -94,6 +94,7 @@ Meteor.generateMap = function(){
     .center([2.85, 50.98])
     .rotate([4.4, 0])
     .scale(1200 * 29);
+        // .scale(1200 * 0.8);
 
   var path = d3.geo.path()
       .projection(projection);
@@ -134,6 +135,10 @@ Meteor.generateMap = function(){
         centered = null;
       }
 
+      d3.select('.mapkey')
+        .transition().duration(function() { return centered ? 500 : 1500 })
+        .style("opacity", function() { return centered ? 0 : 1; });
+
       layerHants.selectAll("path")
           .classed("active", centered && function(d) { return d === centered; })
           .transition()
@@ -152,13 +157,13 @@ Meteor.generateMap = function(){
   };
 
   // queue()
-      // .defer(d3.json, "data/LSOA_hants_simplify0.75_simplify-proportion0.5_datajoin.topo.json")
-      // .defer(d3.json, "data/uk.json")
-      // .await(ready);
+  //     .defer(d3.json, "data/LSOA_hants_simplify0.75_simplify-proportion0.5_datajoin.topo.json")
+  //     .defer(d3.json, "data/uk.json")
+  //     .await(ready);
 
  // function ready(error, hantsData, uk) {
   d3.json("data/LSOA_hants_simplify0.75_simplify-proportion0.5_datajoin.topo.json", function(hantsData) {
-    d3.json("data/uk.json", function(uk) {
+  d3.json("data/uk.json", function(uk) {
 
     var objectid = 'LSOA_hants_simplify0.75';
     var hantsLsoa = topojson.feature(hantsData, hantsData.objects[objectid]);
@@ -198,7 +203,6 @@ Meteor.generateMap = function(){
       .on("mousemove", function() { tooltip.move(); })
       .on("mouseout", function() { tooltip.hide(); } );
 
-
     // Legend
     var formatNumber = d3.format("r");
     var x = d3.scale.linear()
@@ -208,7 +212,7 @@ Meteor.generateMap = function(){
     var xAxis = d3.svg.axis()
       .scale(x)
       .orient("bottom")
-      .tickSize(0)
+      .tickSize(13)
       .tickValues(color.domain())
       .tickFormat(function(d) { return formatNumber(d); });
 
@@ -238,6 +242,6 @@ Meteor.generateMap = function(){
       .attr("y", -6)
       .text("Index of deprivation");
   });
-});
+  });
 }
 
