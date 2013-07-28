@@ -34,7 +34,7 @@ d3.tooltip = function module() {
 	      .select('.tooltip-title')
 	      .text(_d.properties.LA_NAME);
 	    tooltipSel.select('.tooltip-label.var0')
-	      .text("IMD: "+_d.properties.IMD_SCORE);
+	      .text("IMD: "+d3.round(_d.properties.IMD_SCORE,1));
       tooltipSel.select('.tooltip-label.var1')
         .text("LSOA: "+_d.id);
 
